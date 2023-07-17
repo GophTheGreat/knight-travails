@@ -1,8 +1,21 @@
+/* Change this *{} later. It's making the script and style appear on the page */
+/* Hiding them temporarily for now */
+
+
 * {
  display: flex;
  box-sizing: border-box;
 }
 
+script {
+  display: none;
+}
+
+style {
+  display: none;
+}
+
+/* ----------------------------- */
 
 body{
   flex-direction: column;
@@ -97,13 +110,11 @@ button{
   border-radius: 55px;
   flex: none;
   display: inline-grid;
-  grid-template-columns: repeat(16, 2fr);
-  grid-template-rows: repeat(16, 2fr);
+  /* grid colums and rows defined in grid.js */
   border-radius: 55px;
   height: 900px;
   width: 900px;
   background-color: gray;
-
 }
 
 .cell{
