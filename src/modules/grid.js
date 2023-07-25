@@ -7,19 +7,22 @@ class Grid{
   }
 
   makeGrid(gridSize){
-    let cell = [];
-    let grid = document.querySelector(".grid");
+    let grid = [];
+    let gridHTML = document.querySelector(".grid");
+    let cellSize = 900 / gridSize;
     for (let i = 0; i < gridSize; i++){
-      cell[i] = [];
+      grid[i] = [];
       for(let j = 0; j < gridSize; j++){
-        cell[i][j] = document.createElement('div');
-        cell[i][j].classList.add('cell');
-        cell[i][j].style.border = '2px solid darkgrey';
-        grid.appendChild(cell[i][j]);
+        grid[i][j] = document.createElement('div');
+        grid[i][j].classList.add('cell');
+        grid[i][j].style.border = '2px solid darkgrey';
+        gridHTML.appendChild(grid[i][j]);
       }
     }
-    grid.style.gridTemplateColumns = `repeat(${gridSize}, 2fr)`;
-    grid.style.gridTemplateRows = `repeat(${gridSize}, 2fr)`;
+    gridHTML.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    gridHTML.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+    gridHTML.style.width = `${gridSize * (cellSize + 2 * 2)}px`;
+    gridHTML.style.height = `${gridSize * (cellSize + 2 * 2)}px`;
     console.log(grid);
     return grid;
   }
