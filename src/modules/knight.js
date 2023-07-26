@@ -45,37 +45,18 @@ class Knight{
   }
 
   all_possible_moves(position){
-    //up left left
-    this.check_validity([position[0] - 1, position[1] - 2])
-    console.log(this.check_validity([position[0] - 1, position[1] - 2]))
+    const KNIGHT_MOVES = [[-1,-2],[-2,-1],[-2,1],[-1,2],[1,2],[2,1],[1,-2],[2,-1]];
+    let possibleMoves = [];
 
-    //up up left
-    this.check_validity([position[0] - 2, position[1] - 1])
-    console.log(this.check_validity([position[0] - 2, position[1] - 1]))
-
-    //up up right
-    this.check_validity([position[0] - 2, position[1] + 1])
-    console.log(this.check_validity([position[0] - 2, position[1] + 1]))
-
-    //up right right
-    this.check_validity([position[0] - 1, position[1] + 2])
-    console.log(this.check_validity([position[0] - 1, position[1] + 2]))
-
-    //down right right
-    this.check_validity([position[0] + 1, position[1] + 2])
-    console.log(this.check_validity([position[0] + 1, position[1] + 2]))
-
-    //down down right
-    this.check_validity([position[0] + 2, position[1] + 1])
-    console.log(this.check_validity([position[0] + 2, position[1] + 1]))
-
-    //down down left
-    this.check_validity([position[0] + 2, position[1] - 1])
-    console.log(this.check_validity([position[0] + 2, position[1] - 1]))
-
-    //down left left
-    this.check_validity([position[0] + 1, position[1] - 2])
-    console.log(this.check_validity([position[0] + 1, position[1] - 2]))
+    for(let i = 0; i < 8; i++){
+      if(this.check_validity([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]])){
+        console.log(this.check_validity([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]]))
+        possibleMoves.push([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]]);
+      }
+    }
+    
+    console.log(possibleMoves);
+    return possibleMoves;
   }
   
   check_validity(position){
