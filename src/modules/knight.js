@@ -17,21 +17,75 @@ class Knight{
     image.style.width = cellSize;
     image.style.height = cellSize;
     //place the knight visibly
-    let column = this.startpos[0]
-    let row = this.startpos[1];
+    //0,0 is top left
+    let row = this.startpos[0];
+    let column = this.startpos[1]
 
-    let cell = column * this.grid.size + row - 1;
+
+    let cell = row * this.grid.size + column;
     let cellHTML = gridHTML.childNodes[cell];
     cellHTML.style.backgroundColor = "black";
     cellHTML.appendChild(image)
 
     //mark the endpos
-    column = this.endpos[0]
-    row = this.endpos[1];
-    cell = column * this.grid.size + row - 1;
+    row = this.endpos[0];
+    column = this.endpos[1]
+
+    cell = row * this.grid.size + column;
     cellHTML = gridHTML.childNodes[cell];
     cellHTML.style.backgroundColor = "red";
 
+  }
+
+  knight_moves(){
+    //push all possible moves of the knight
+    this.all_possible_moves(this.startpos);
+
+
+  }
+
+  all_possible_moves(position){
+    //up left left
+    this.check_validity([position[0] - 1, position[1] - 2])
+    console.log(this.check_validity([position[0] - 1, position[1] - 2]))
+
+    //up up left
+    this.check_validity([position[0] - 2, position[1] - 1])
+    console.log(this.check_validity([position[0] - 2, position[1] - 1]))
+
+    //up up right
+    this.check_validity([position[0] - 2, position[1] + 1])
+    console.log(this.check_validity([position[0] - 2, position[1] + 1]))
+
+    //up right right
+    this.check_validity([position[0] - 1, position[1] + 2])
+    console.log(this.check_validity([position[0] - 1, position[1] + 2]))
+
+    //down right right
+    this.check_validity([position[0] + 1, position[1] + 2])
+    console.log(this.check_validity([position[0] + 1, position[1] + 2]))
+
+    //down down right
+    this.check_validity([position[0] + 2, position[1] + 1])
+    console.log(this.check_validity([position[0] + 2, position[1] + 1]))
+
+    //down down left
+    this.check_validity([position[0] + 2, position[1] - 1])
+    console.log(this.check_validity([position[0] + 2, position[1] - 1]))
+
+    //down left left
+    this.check_validity([position[0] + 1, position[1] - 2])
+    console.log(this.check_validity([position[0] + 1, position[1] - 2]))
+  }
+  
+  check_validity(position){
+    if (position[0] < 0 || position[0] > this.grid.size){
+      return false;
+    }
+    if(position[1] < 0 || position[1] > this.grid.size){
+      return false;
+    }
+    return true;
   }
 }
 
