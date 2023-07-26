@@ -1,4 +1,5 @@
 import knightImg from './../assets/knight.svg'
+import Graph from './graph';
 
 class Knight{
   constructor(startpos, endpos, grid){
@@ -41,7 +42,10 @@ class Knight{
     //push all possible moves of the knight
     this.all_possible_moves(this.startpos);
 
-
+    if(something = endpos){
+      console.log(moves)
+      return moves;
+    }
   }
 
   all_possible_moves(position){
@@ -54,7 +58,7 @@ class Knight{
         possibleMoves.push([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]]);
       }
     }
-    
+
     console.log(possibleMoves);
     return possibleMoves;
   }

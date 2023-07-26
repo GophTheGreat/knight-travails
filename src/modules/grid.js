@@ -1,9 +1,11 @@
 //Sets up the grid
 
 class Grid{
-  constructor(){
+  constructor(startpos, endpos){
     this.size = 8
     this.grid = this.makeGrid(this.size);
+    if(startpos)this.startpos = startpos;
+    this.endpos = endpos;
   }
 
   makeGrid(gridSize){

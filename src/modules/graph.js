@@ -1,11 +1,18 @@
 class Graph{
-  constructor(){
-
+  constructor(position){
+    this.root = new myNode(position, null)
   }
 
-  knight_moves
+  //Alright we're in the middle of implementing a graph so that I can have a tree thing to track which nodes belong to the path and how to get to the end.
   
-  push(){
-    
+}
+
+class myNode{
+  constructor(value, parent){
+    this.value = value;
+    this.children = [];
+    this.parent = []
   }
 }
+
+export default [Graph, myNode];
