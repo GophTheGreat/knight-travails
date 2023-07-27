@@ -39,12 +39,35 @@ class Knight{
   }
 
   knight_moves(){
-    //push all possible moves of the knight
-    this.all_possible_moves(this.startpos);
+    //Start a graph from our knight's startpos
+    let graph = new Graph();
+    graph.addVertex(this.startpos);
 
-    if(something = endpos){
-      console.log(moves)
-      return moves;
+    //Find all possible moves of the knight from a start point
+    //Push them into a data structure
+    //Check them all to see if they are the endpoint
+    //If none are the endpoint, take each node as a new start point
+    //Repeat
+
+    //Find all possible moves from a start point
+    //Push them all into the graph
+    //Actually we need a tree thingie with children so maybe not this
+    let adjacents = this.all_possible_moves(this.startpos);
+    let curpos = this.startpos;
+
+    for(let i = 0; i < adjacents.length; i++){
+      graph.addVertex(adjacents[i])
+      graph.addEdge(adjacents[i],curpos)
+    }
+
+    //Traverse the graph to see if any of the points are the endpoint
+    //Push them into "visited"
+    //shift them from the queue as we go
+    for(let i = 0; i < visited.length; i++){
+      if(graph[i] = this.endpos){
+        return queue[i];
+      }
+      visited.push(queue.shift());
     }
   }
 
