@@ -114,25 +114,26 @@ class Graph{
       console.log(`${key}: ${value}`);
     })
 
-    console.log(`THIS ONE WORKS`)
-    console.log(parentMap.get(currentNode.toString()))
-    console.log(`THIS ONE WORKS`)
-    console.log(parentMap.get(currentNode))  
+    // console.log(`THIS ONE WORKS`)
+    // console.log(parentMap.get(currentNode.toString()))
+    // console.log(`THIS ONE WORKS`)
+    // console.log(parentMap.get(currentNode))  
     console.log("Current is " + currentNode)  
     console.log("Current is " + currentNode.toString())
-    console.log("Start is " + start)
 
     // if(currentNode.toString() === test.toString){console.log(true);}
     // else(console.log(false));
 
     console.log("ASSSSSSSSSSSSSSSSSSSSSSSSs")
     console.log(currentNode !== start)
-    while(currentNode !== start && currentNode !== null){
+    while(currentNode !== start && currentNode !==  null){
+      console.log("This shouldn't read if currentNode is null " + currentNode)
       console.log("Drawing path to root. Currently at " + pathToRoot)
       let currentNodeString = JSON.stringify(currentNode)
       console.log(currentNodeString)
       console.log(parentMap.get(currentNodeString))
       currentNode = parentMap.get(currentNode.toString());
+      if(currentNode === null){break}
       console.log(currentNode)
       pathToRoot.unshift((JSON.parse('[' + currentNode + ']')));
       console.log(currentNode)
