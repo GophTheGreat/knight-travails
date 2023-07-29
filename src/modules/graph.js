@@ -41,6 +41,93 @@ class Graph{
       console.log(i + " -> " + conc);
     }
   }
+
+  findPathToRoot(graph, start, end){
+    console.log("Searching for path to root from " + end + " to " + start);
+    const visited = new Set();
+    const parentMap = new Map();
+
+
+    function depthFirstSearch(node, parentNode){
+      console.log("Searching for " + node + " From parent " + parentNode);
+      visited.add(node);
+      //Every time we search, add a node to the parentMap
+      parentMap.set(node, parentNode);
+
+      console.log(node)
+      console.log(end);
+      console.log(node === end);
+
+      if(node.toString() === end.toString()) {
+        console.log(node + "is the endpoint!")
+        return true; //Found the endpoint
+      }
+
+      console.log("Adj list .get = " + graph.AdjList.get(node))
+      console.log(graph.AdjList.get(node))
+      //For every neighbor to the start node
+      for(const neighbor of graph.AdjList.get(node)){
+        console.log ("Checking neighbor " + neighbor);
+        //If our "visited" set does not have this neighbor
+        if(!visited.has(neighbor)){
+          console.log("Adding " + neighbor + " to visited")
+          //And traverse down this neighbor
+          if(depthFirstSearch(neighbor, node)){
+            //At some point the "node" that we feed to depthFirstSearch
+            //will be the endpoint
+            console.log("Found! We found " + neighbor + "!")
+            return true; //Endpoint found in child subtree
+          }
+        }
+      }
+      return false; //Endpoint not found in this subtree
+    }
+
+    //Check is the endpoint is reachable from the start
+    if(!depthFirstSearch(start, null)){
+      return null;
+    }
+  
+    //Reconstruct the path from endpoint to root using parentMap
+    const pathToRoot = [end];
+    let currentNode = end;
+    let test = new Map;
+
+    console.log(`~~~~~~~~~~~~~~~~~~~~`)
+    test.set([4, 3], [3, 1])
+    test.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    })
+    console.log(`~~~~~~~~~~~~~~~~~~~~`)
+  
+    //print out the parentMap for debugging
+    parentMap.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    })
+    console.log(parentMap.get(currentNode.toString()))
+    console.log(parentMap.get(currentNode))    
+    console.log("Current is " + currentNode)
+    console.log("Start is " + start)
+
+    if(currentNode.toString() === test.toString){console.log(true);}
+    else(console.log(false));
+
+    console.log("ASSSSSSSSSSSSSSSSSSSSSSSSs")
+    console.log(currentNode !== start)
+    if(currentNode !== start && currentNode !== null){
+      console.log("Drawing path to root. Currently at " + pathToRoot)
+      console.log(currentNode)
+      console.log(parentMap.get(currentNode))
+      currentNode = parentMap.get(currentNode.toString());
+      pathToRoot.unshift(currentNode)
+      console.log(currentNode)
+    }
+
+    console.log(pathToRoot)
+    return pathToRoot;
+  }
+
+
   
 }
 

@@ -42,6 +42,8 @@ class Knight{
     //Start a graph from our knight's startpos
     let graph = new Graph();
     graph.addVertex(this.startpos);
+    let queue = [];
+    let visited = [];
 
     //Find all possible moves of the knight from a start point
     //Push them into a data structure
@@ -51,24 +53,45 @@ class Knight{
 
     //Find all possible moves from a start point
     //Push them all into the graph
-    //Actually we need a tree thingie with children so maybe not this
     let adjacents = this.all_possible_moves(this.startpos);
     let curpos = this.startpos;
 
     for(let i = 0; i < adjacents.length; i++){
       graph.addVertex(adjacents[i])
       graph.addEdge(adjacents[i],curpos)
+      queue.push(adjacents[i]);
     }
 
     //Traverse the graph to see if any of the points are the endpoint
     //Push them into "visited"
     //shift them from the queue as we go
-    for(let i = 0; i < visited.length; i++){
-      if(graph[i] = this.endpos){
-        return queue[i];
+    var get_keys = graph.AdjList.keys();
+    //iterate over the vertices
+    for(let i of get_keys){
+      let get_values = graph.AdjList.get(i);
+      
+      //iterate over the adjacency list of each vertice
+      for(let j of get_values){
+        console.log("Comparing point "+ j + " with endpos " + this.endpos)
+        //If we find the endpoint here,
+        //Draw the path from the start to the endpos
+        //Arrays must be converted or iterated through to be compared
+        if(j.toString() === this.endpos.toString()){
+          console.log("Endpoint found!");
+          visited.push(j);
+          return graph.findPathToRoot(graph, this.startpos, this.endpos);
+        }
       }
-      visited.push(queue.shift());
     }
+    // for(let i = 0; i < visited.length; i++){
+    //   if(graph[i] = this.endpos){
+    //     return queue[i];
+    //   }
+    //   visited.push(queue.shift());
+    // }
+
+    //if we don't find it, then start again
+    //curpos = graph
   }
 
   all_possible_moves(position){
