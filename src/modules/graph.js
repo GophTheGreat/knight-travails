@@ -52,14 +52,20 @@ class Graph{
       console.log("Searching for " + node + " From parent " + parentNode);
       visited.add(node);
       //Every time we search, add a node to the parentMap
-      parentMap.set(node, parentNode);
+      if(parentNode){
+        parentMap.set(node.toString(), parentNode.toString());
+      }
+      else{
+        parentMap.set(node.toString(), parentNode);
+      }
+      
 
       console.log(node)
       console.log(end);
       console.log(node === end);
 
       if(node.toString() === end.toString()) {
-        console.log(node + "is the endpoint!")
+        console.log(node + " is the endpoint!")
         return true; //Found the endpoint
       }
 
@@ -93,33 +99,42 @@ class Graph{
     let currentNode = end;
     let test = new Map;
 
-    console.log(`~~~~~~~~~~~~~~~~~~~~`)
-    test.set([4, 3], [3, 1])
-    test.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    })
-    console.log(`~~~~~~~~~~~~~~~~~~~~`)
+    // console.log(`~~~~~~~~~~~~~~~~~~~~`)
+    // test.set([4, 3].toString(), [3, 1])
+    // test.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // })
+    // console.log(test.get([4,3]));
+    // console.log(test.get([4,3].toString()));
+    // console.log([4,3].toString())
+    // console.log(`~~~~~~~~~~~~~~~~~~~~`)
   
     //print out the parentMap for debugging
     parentMap.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     })
+
+    console.log(`THIS ONE WORKS`)
     console.log(parentMap.get(currentNode.toString()))
-    console.log(parentMap.get(currentNode))    
-    console.log("Current is " + currentNode)
+    console.log(`THIS ONE WORKS`)
+    console.log(parentMap.get(currentNode))  
+    console.log("Current is " + currentNode)  
+    console.log("Current is " + currentNode.toString())
     console.log("Start is " + start)
 
-    if(currentNode.toString() === test.toString){console.log(true);}
-    else(console.log(false));
+    // if(currentNode.toString() === test.toString){console.log(true);}
+    // else(console.log(false));
 
     console.log("ASSSSSSSSSSSSSSSSSSSSSSSSs")
     console.log(currentNode !== start)
-    if(currentNode !== start && currentNode !== null){
+    while(currentNode !== start && currentNode !== null){
       console.log("Drawing path to root. Currently at " + pathToRoot)
-      console.log(currentNode)
-      console.log(parentMap.get(currentNode))
+      let currentNodeString = JSON.stringify(currentNode)
+      console.log(currentNodeString)
+      console.log(parentMap.get(currentNodeString))
       currentNode = parentMap.get(currentNode.toString());
-      pathToRoot.unshift(currentNode)
+      console.log(currentNode)
+      pathToRoot.unshift((JSON.parse('[' + currentNode + ']')));
       console.log(currentNode)
     }
 
