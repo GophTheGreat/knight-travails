@@ -44,23 +44,49 @@ class Knight{
     graph.addVertex(this.startpos);
     let queue = [];
     let visited = [];
-
-    //Find all possible moves of the knight from a start point
-    //Push them into a data structure
-    //Check them all to see if they are the endpoint
-    //If none are the endpoint, take each node as a new start point
-    //Repeat
-
-    //Find all possible moves from a start point
-    //Push them all into the graph
-    let adjacents = this.all_possible_moves(this.startpos);
     let curpos = this.startpos;
+    let adjacents = [];
 
-    for(let i = 0; i < adjacents.length; i++){
-      graph.addVertex(adjacents[i])
-      graph.addEdge(adjacents[i],curpos)
-      queue.push(adjacents[i]);
+    queue.push(curpos);
+    //Search through the chess board
+    while(curpos != null){
+      //Go through each thing in the queue
+      for(let i = 0; i > queue.length; i++){
+        //Check if it's the endpoint
+        //If it is, find the path to that point from the graph and return
+        if(queue[i].toString() === this.endpos.toString()){
+          console.log("Endpoint found!");
+          let path = graph.findPathToRoot(graph, this.startpos, this.endpos)
+          console.log(path);
+          return path;
+        }
+        //Else remove the first element of the queue
+        //Push all the adjacents of the next point into the queue
+        //And push the one point to Visited
+        else{
+          
+          visited.push(queue[i])
+          queue.shift();
+        }
+      }
+
+
+      //Find all moves possible given a start point
+      adjacents = this.all_possible_moves(curpos);
+      //Push them into the graph if they're a new space
+      for(let i = 0; i < adjacents.length; i++){
+        if(!visited.includes(adjacents[i])){
+          graph.addVertex(adjacents[i])
+          graph.addEdge(adjacents[i],curpos)
+          queue.push(adjacents[i])
+        }
+      }
+      
     }
+
+
+    //We want to iterate through the queue and find all the adjacents of each entry
+    //We check them each
 
     //Traverse the graph to see if any of the points are the endpoint
     //Push them into "visited"
@@ -83,15 +109,6 @@ class Knight{
         }
       }
     }
-    // for(let i = 0; i < visited.length; i++){
-    //   if(graph[i] = this.endpos){
-    //     return queue[i];
-    //   }
-    //   visited.push(queue.shift());
-    // }
-
-    //if we don't find it, then start again
-    //curpos = graph
   }
 
   all_possible_moves(position){
