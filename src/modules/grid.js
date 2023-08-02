@@ -30,9 +30,11 @@ class Grid{
   }
 
   darken(e){
-    let color = e.target.style.backgroundColor;
-    color = rgbToHex(color);
-    console.log(color);
+    console.log("Darkening")
+    console.log(e)
+    let color = e.style.backgroundColor;
+    color = this.rgbToHex(color);
+    //console.log(color);
     if(color == '' || color == undefined){
       color = '0xFFFFFF'
     }
@@ -40,12 +42,25 @@ class Grid{
       color = color.slice(1);
       color = String.prototype.concat('0x', color);
     }
-    let num = color - 0x333333;
-    console.log(num.toString(16));
-    e.target.style.backgroundColor = String.prototype.concat('#', num.toString(16));
+    let num = color - 0x222222;
+    //console.log(num.toString(16));
+    e.style.backgroundColor = String.prototype.concat('#', num.toString(16));
     //let final = String.prototype.concat('#', num);
     //console.log(final);
     //e.target.style.backgroundColor = rgb(233, 233, 233);
+  }
+
+  rgbToHex(col){
+    if(col.charAt(0)=='r')
+    {
+      col=col.replace('rgb(','').replace(')','').split(',');
+      var r=parseInt(col[0], 10).toString(16);
+      var g=parseInt(col[1], 10).toString(16);
+      var b=parseInt(col[2], 10).toString(16);
+      r=r.length==1?'0'+r:r; g=g.length==1?'0'+g:g; b=b.length==1?'0'+b:b;
+      var colHex='#'+r+g+b;
+      return colHex;
+    }
   }
 }
 

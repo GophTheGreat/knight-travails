@@ -31,6 +31,6 @@ const endpos = [4,1];
 //End graph test
 
 let grid = new Grid(startpos, endpos);
-let knight = new Knight([3,1], [2,2], grid);
+let knight = new Knight([3,1], [6,5], grid);
 knight.knight_moves();
 console.log(grid);

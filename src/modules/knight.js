@@ -46,49 +46,61 @@ class Knight{
     let visited = [];
     let curpos = this.startpos;
     let adjacents = [];
+    let gridHTML = document.getElementById("grid");
+    let cellHTML;
+    let cell;
+    let column;
+    let row;
 
     queue.push(curpos);
     //Search through the chess board loop start
     let j = 0;
-    while(j < 6){
-      console.log("Starting loop!")
+    while(curpos != null){
+      console.log("################STARTING LOOP#####################")
       console.log(queue.length);
-      //Go through each thing in the queue
-      for(let i = 0; i < queue.length; i++){
-        console.log("Current position check is on " + queue[i]);
-        //Check if it's the endpoint
-        //If it is, find the path to that point from the graph and return
-        if(queue[i].toString() === this.endpos.toString()){
-          console.log("Endpoint found!");
-          let path = graph.findPathToRoot(graph, this.startpos, this.endpos)
-          console.log("Path to the endpoint is: " + path);
-          return path;
-        }
-        //Else remove the first element of the queue
-        //Push all the adjacents of the next point into the queue and visited
-        else{
-          //Find all moves possible given a start point
-          adjacents = this.all_possible_moves(curpos);
-          //Push them into the graph and queue if they're a new space
-          //WRITE THING TO COMPARE THE ITEMS AFTER 
+      console.log("Curpos is " + curpos)
+      //Check if it's the endpoint
+      //If it is, find the path to that point from the graph and return
+      if(curpos.toString() === this.endpos.toString()){
+        console.log("!!!!!!!!!!!!!!!Endpoint found!!!!!!!!!!!!!!!!!!!!!!!!");
+        let path = graph.findPathToRoot(graph, this.startpos, this.endpos)
+        console.log("Path to the endpoint is: " + path);
+        return path;
+      }
+      //Else remove the first element of the queue
+      //Push all the adjacents of the next point into the queue and visited
+      else{
+        //Find all moves possible given a start point
+        adjacents = this.all_possible_moves(curpos);
+        //Push them into the graph and queue if they're a new space
+        //WRITE THING TO COMPARE THE ITEMS AFTER 
+        console.log("Confirming possible moves " + adjacents)
+        for(let i = 0; i < adjacents.length; i++){
+          console.log("The list of visited nodes is now: " + visited)
+          console.log(visited);
+          console.log("Is " + adjacents[i].toString() + " in the visited")
+          if(visited.find((element) => this.arraycompare(element, adjacents[i]))){console.log(true)}
+          else{console.log(false)}
+          if(!visited.find((element) => this.arraycompare(element, adjacents[i]))){
+            console.log("Adding " + adjacents[i] + " to the queue")
+            graph.addVertex(adjacents[i])
+            graph.addEdge(adjacents[i],curpos)
+            queue.push(adjacents[i])
+            visited.push(adjacents[i])
 
-          visited.find(((element) => (element[0] == adjacents[i][0]) && (element[1] == adjacents[i][1])))
-          for(let i = 0; i < adjacents.length; i++){
-            console.log("The list of visited nodes is now: ")
-            console.log(visited);
-            console.log("Is " + adjacents[i].toString() + " in the visited")
-            console.log(visited.find((element) => this.arraycompare(element, adjacents[i])))
-            if(!visited.find((element) => this.arraycompare(element, adjacents[i]))){
-              graph.addVertex(adjacents[i])
-              graph.addEdge(adjacents[i],curpos)
-              queue.push(adjacents[i])
-              visited.push(adjacents[i])
-            }
+            //shade the visited squares
+            row = curpos[0];
+            column = curpos[1];
+            cell = row * this.grid.size + column;
+            cellHTML = gridHTML.childNodes[cell]
+            this.grid.darken(cellHTML);
           }
-          queue.shift();
-          console.log("The queue is now " + queue)
-          console.log("The list of visited nodes is now " + visited)
         }
+        console.log("Removing " + queue[0] + " from the queue")
+        curpos = queue.shift();
+        console.log("The queue is now " + queue)
+        console.log("The list of visited nodes is now " + visited)
+        console.log("/////////////////////END LOOP////////////////////////")
       }
       j++;
     }

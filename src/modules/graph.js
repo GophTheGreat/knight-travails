@@ -50,7 +50,7 @@ class Graph{
 
     function depthFirstSearch(node, parentNode){
       console.log("Searching for " + node + " From parent " + parentNode);
-      visited.add(node);
+      visited.add(node.toString());
       //Every time we search, add a node to the parentMap
       if(parentNode){
         parentMap.set(node.toString(), parentNode.toString());
@@ -75,7 +75,7 @@ class Graph{
       for(const neighbor of graph.AdjList.get(node)){
         console.log ("Checking neighbor " + neighbor);
         //If our "visited" set does not have this neighbor
-        if(!visited.has(neighbor)){
+        if(!visited.has(neighbor.toString())){
           console.log("Adding " + neighbor + " to visitedpath")
           //And traverse down this neighbor
           if(depthFirstSearch(neighbor, node)){
@@ -123,8 +123,6 @@ class Graph{
 
     // if(currentNode.toString() === test.toString){console.log(true);}
     // else(console.log(false));
-
-    console.log("ASSSSSSSSSSSSSSSSSSSSSSSSs")
     console.log(currentNode !== start)
     while(currentNode !== start && currentNode !==  null){
       console.log("This shouldn't read if currentNode is null " + currentNode)
