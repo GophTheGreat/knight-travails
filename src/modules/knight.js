@@ -48,67 +48,73 @@ class Knight{
     let adjacents = [];
 
     queue.push(curpos);
-    //Search through the chess board
-    while(curpos != null){
+    //Search through the chess board loop start
+    let j = 0;
+    while(j < 3){
+      console.log("Starting loop!")
+      console.log(queue.length);
       //Go through each thing in the queue
-      for(let i = 0; i > queue.length; i++){
+      for(let i = 0; i < queue.length; i++){
+        console.log("Current position check is on " + queue[i]);
         //Check if it's the endpoint
         //If it is, find the path to that point from the graph and return
         if(queue[i].toString() === this.endpos.toString()){
           console.log("Endpoint found!");
           let path = graph.findPathToRoot(graph, this.startpos, this.endpos)
-          console.log(path);
+          console.log("Path to the endpoint is: " + path);
           return path;
         }
         //Else remove the first element of the queue
-        //Push all the adjacents of the next point into the queue
-        //And push the one point to Visited
+        //Push all the adjacents of the next point into the queue and visited
         else{
-          
-          visited.push(queue[i])
+          //Find all moves possible given a start point
+          adjacents = this.all_possible_moves(curpos);
+          //Push them into the graph and queue if they're a new space
+          for(let i = 0; i < adjacents.length; i++){
+            console.log("The list of visited nodes is now: ")
+            console.log(visited);
+            console.log("Is " + adjacents[i].toString() + " in the visited")
+            console.log(visited.includes(adjacents[i].toString()))
+            if(!visited.includes(adjacents[i])){
+              graph.addVertex(adjacents[i])
+              graph.addEdge(adjacents[i],curpos)
+              queue.push(adjacents[i])
+              visited.push(adjacents[i])
+            }
+          }
           queue.shift();
+          console.log("The queue is now " + queue)
+          console.log("The list of visited nodes is now " + visited)
         }
       }
-
-
-      //Find all moves possible given a start point
-      adjacents = this.all_possible_moves(curpos);
-      //Push them into the graph if they're a new space
-      for(let i = 0; i < adjacents.length; i++){
-        if(!visited.includes(adjacents[i])){
-          graph.addVertex(adjacents[i])
-          graph.addEdge(adjacents[i],curpos)
-          queue.push(adjacents[i])
-        }
-      }
-      
+      j++;
     }
 
 
-    //We want to iterate through the queue and find all the adjacents of each entry
-    //We check them each
+    // //We want to iterate through the queue and find all the adjacents of each entry
+    // //We check them each
 
-    //Traverse the graph to see if any of the points are the endpoint
-    //Push them into "visited"
-    //shift them from the queue as we go
-    var get_keys = graph.AdjList.keys();
-    //iterate over the vertices
-    for(let i of get_keys){
-      let get_values = graph.AdjList.get(i);
+    // //Traverse the graph to see if any of the points are the endpoint
+    // //Push them into "visited"
+    // //shift them from the queue as we go
+    // var get_keys = graph.AdjList.keys();
+    // //iterate over the vertices
+    // for(let i of get_keys){
+    //   let get_values = graph.AdjList.get(i);
       
-      //iterate over the adjacency list of each vertice
-      for(let j of get_values){
-        console.log("Comparing point "+ j + " with endpos " + this.endpos)
-        //If we find the endpoint here,
-        //Draw the path from the start to the endpos
-        //Arrays must be converted or iterated through to be compared
-        if(j.toString() === this.endpos.toString()){
-          console.log("Endpoint found!");
-          visited.push(j);
-          return graph.findPathToRoot(graph, this.startpos, this.endpos);
-        }
-      }
-    }
+    //   //iterate over the adjacency list of each vertice
+    //   for(let j of get_values){
+    //     console.log("Comparing point "+ j + " with endpos " + this.endpos)
+    //     //If we find the endpoint here,
+    //     //Draw the path from the start to the endpos
+    //     //Arrays must be converted or iterated through to be compared
+    //     if(j.toString() === this.endpos.toString()){
+    //       console.log("Endpoint found!");
+    //       visited.push(j);
+    //       return graph.findPathToRoot(graph, this.startpos, this.endpos);
+    //     }
+    //   }
+    // }
   }
 
   all_possible_moves(position){
@@ -122,7 +128,7 @@ class Knight{
       }
     }
 
-    console.log(possibleMoves);
+    console.log("Possible hops are: " + possibleMoves);
     return possibleMoves;
   }
   
