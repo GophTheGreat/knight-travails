@@ -76,7 +76,7 @@ class Graph{
         console.log ("Checking neighbor " + neighbor);
         //If our "visited" set does not have this neighbor
         if(!visited.has(neighbor)){
-          console.log("Adding " + neighbor + " to visited")
+          console.log("Adding " + neighbor + " to visitedpath")
           //And traverse down this neighbor
           if(depthFirstSearch(neighbor, node)){
             //At some point the "node" that we feed to depthFirstSearch

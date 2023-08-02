@@ -50,7 +50,7 @@ class Knight{
     queue.push(curpos);
     //Search through the chess board loop start
     let j = 0;
-    while(j < 3){
+    while(j < 6){
       console.log("Starting loop!")
       console.log(queue.length);
       //Go through each thing in the queue
@@ -70,12 +70,15 @@ class Knight{
           //Find all moves possible given a start point
           adjacents = this.all_possible_moves(curpos);
           //Push them into the graph and queue if they're a new space
+          //WRITE THING TO COMPARE THE ITEMS AFTER 
+
+          visited.find(((element) => (element[0] == adjacents[i][0]) && (element[1] == adjacents[i][1])))
           for(let i = 0; i < adjacents.length; i++){
             console.log("The list of visited nodes is now: ")
             console.log(visited);
             console.log("Is " + adjacents[i].toString() + " in the visited")
-            console.log(visited.includes(adjacents[i].toString()))
-            if(!visited.includes(adjacents[i])){
+            console.log(visited.find((element) => this.arraycompare(element, adjacents[i])))
+            if(!visited.find((element) => this.arraycompare(element, adjacents[i]))){
               graph.addVertex(adjacents[i])
               graph.addEdge(adjacents[i],curpos)
               queue.push(adjacents[i])
@@ -89,32 +92,15 @@ class Knight{
       }
       j++;
     }
+  }
 
-
-    // //We want to iterate through the queue and find all the adjacents of each entry
-    // //We check them each
-
-    // //Traverse the graph to see if any of the points are the endpoint
-    // //Push them into "visited"
-    // //shift them from the queue as we go
-    // var get_keys = graph.AdjList.keys();
-    // //iterate over the vertices
-    // for(let i of get_keys){
-    //   let get_values = graph.AdjList.get(i);
-      
-    //   //iterate over the adjacency list of each vertice
-    //   for(let j of get_values){
-    //     console.log("Comparing point "+ j + " with endpos " + this.endpos)
-    //     //If we find the endpoint here,
-    //     //Draw the path from the start to the endpos
-    //     //Arrays must be converted or iterated through to be compared
-    //     if(j.toString() === this.endpos.toString()){
-    //       console.log("Endpoint found!");
-    //       visited.push(j);
-    //       return graph.findPathToRoot(graph, this.startpos, this.endpos);
-    //     }
-    //   }
-    // }
+  arraycompare(element, subject){
+    if(element[0] == subject[0] && element[1] == subject[1]){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   all_possible_moves(position){
