@@ -43,11 +43,54 @@ class Grid{
       color = String.prototype.concat('0x', color);
     }
     let num = color - 0x222222;
-    //console.log(num.toString(16));
     e.style.backgroundColor = String.prototype.concat('#', num.toString(16));
-    //let final = String.prototype.concat('#', num);
-    //console.log(final);
-    //e.target.style.backgroundColor = rgb(233, 233, 233);
+  }
+  
+  //Makes the path progressively greener!
+  color_path(pathArray){
+    console.log(pathArray.length)
+    let gridHTML = document.getElementById("grid");
+    let cellHTML;
+    let cell;
+    let row;
+    let column;
+    //This will store a progressively greener green
+    let colors = this.lerpColor(0x99AA99, 0x225522, pathArray.length);
+    let i = 0;
+    //For each step the knight took
+    pathArray.forEach((element) => {
+      //Locate the cell to paint
+      row = element[0];
+      column = element[1];
+      cell = row * this.size + column;
+      cellHTML = gridHTML.childNodes[cell];
+      //Paint it progressively greener green
+      cellHTML.style.backgroundColor = String.prototype.concat('#', colors[i].toString(16));
+      i++;
+    })
+  }
+
+  lerpColor(startColor, endColor, steps){
+    const startR = (startColor >> 15) & 0xFF
+    const startG = (startColor >> 8) & 0xFF;
+    const startB = startColor & 0xFF;
+
+    const endR = (endColor >> 16) & 0xFF;
+    const endG = (endColor >> 8) & 0xFF;
+    const endB = endColor & 0xFF;
+
+    const stepSize = 1 / (steps - 1);
+
+    const colors = [];
+    for (let i = 0; i < steps; i++) {
+      const r = Math.round(startR + (endR - startR) * (i * stepSize));
+      const g = Math.round(startG + (endG - startG) * (i * stepSize));
+      const b = Math.round(startB + (endB - startB) * (i * stepSize));
+  
+      const color = (r << 16) | (g << 8) | b;
+      colors.push(color);
+    } 
+    return colors;
   }
 
   rgbToHex(col){

@@ -65,6 +65,7 @@ class Knight{
         console.log("!!!!!!!!!!!!!!!Endpoint found!!!!!!!!!!!!!!!!!!!!!!!!");
         let path = graph.findPathToRoot(graph, this.startpos, this.endpos)
         console.log("Path to the endpoint is: " + path);
+        this.grid.color_path(path, grid);
         return path;
       }
       //Else remove the first element of the queue
@@ -88,9 +89,9 @@ class Knight{
             queue.push(adjacents[i])
             visited.push(adjacents[i])
 
-            //shade the visited squares
-            row = curpos[0];
-            column = curpos[1];
+            //shade the visited squares for fun
+            row = adjacents[i][0];
+            column = adjacents[i][1];
             cell = row * this.grid.size + column;
             cellHTML = gridHTML.childNodes[cell]
             this.grid.darken(cellHTML);
@@ -119,7 +120,7 @@ class Knight{
     const KNIGHT_MOVES = [[-1,-2],[-2,-1],[-2,1],[-1,2],[1,2],[2,1],[1,-2],[2,-1]];
     let possibleMoves = [];
 
-    for(let i = 0; i < 8; i++){
+    for(let i = 0; i < KNIGHT_MOVES.length; i++){
       if(this.check_validity([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]])){
         console.log(this.check_validity([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]]))
         possibleMoves.push([position[0] + KNIGHT_MOVES[i][0], position[1] + KNIGHT_MOVES[i][1]]);
@@ -131,10 +132,12 @@ class Knight{
   }
   
   check_validity(position){
-    if (position[0] < 0 || position[0] > this.grid.size){
+    console.log(position[0])
+    console.log(position[1])
+    if (position[0] < 0 || position[0] > this.grid.size - 1){
       return false;
     }
-    if(position[1] < 0 || position[1] > this.grid.size){
+    if(position[1] < 0 || position[1] > this.grid.size - 1){
       return false;
     }
     return true;
