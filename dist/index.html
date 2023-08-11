@@ -10,15 +10,17 @@
   <div class="top">
     <div>Knight Travails</div>
     <button>RESET</button>
-    <input type="range" min="4" max="20" value="8" class="slider" id="slider">
+    <input type="range" min="8" max="25" value="8" class="slider" id="slider">
     <div class="sliderText" id="sliderText"></div>
   </div>
   <div class="middle">
-    <div class="etchPanel">
-      <div class="screen">
-        <div id="grid" class="grid"></div>
-      </div>
+    <div id="posContainer">
+      <div id="startPosTitle" class="posText">Knight Start</div>
+      <div id="startPos" class="posText">[3, 1]</div>
+      <div id="endPosTitle" class="posText">Destination</div>
+      <div id="endPos" class="posText">[4, 4]</div>
     </div>
+    <div id="grid" class="grid"></div>
   </div>
   <div class="footer">
   Goodbye

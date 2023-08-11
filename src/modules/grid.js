@@ -1,19 +1,19 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-bitwise */
 /* eslint-disable no-console */
-// Sets up the grid
 
 class Grid {
-  constructor(startpos, endpos) {
-    this.size = 8;
-    this.grid = this.makeGrid(this.size);
+  constructor(startpos, endpos, size, gridDiv) {
+    this.size = size;
+    this.grid = this.makeGrid(size, gridDiv);
     if (startpos) { this.startpos = startpos; }
     this.endpos = endpos;
+    this.gridDiv = gridDiv;
   }
 
-  makeGrid(gridSize) {
+  makeGrid(gridSize, gridDiv) {
     const grid = [];
-    const gridHTML = document.querySelector('.grid');
+    const gridHTML = gridDiv;
     const cellSize = 900 / gridSize;
     for (let i = 0; i < gridSize; i += 1) {
       grid[i] = [];
@@ -21,9 +21,13 @@ class Grid {
         grid[i][j] = document.createElement('div');
         grid[i][j].classList.add('cell');
         grid[i][j].style.border = '2px solid darkgrey';
+        grid[i][j].class = 'cell';
         gridHTML.appendChild(grid[i][j]);
       }
     }
+    gridHTML.style.gridColumnStart = '2';
+    gridHTML.style.gridRowStart = '2';
+    gridHTML.style.justifySelf = 'center';
     gridHTML.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     gridHTML.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
     gridHTML.style.width = `${gridSize * (cellSize + 2 * 2)}px`;
@@ -67,6 +71,9 @@ class Grid {
       cellHTML = gridHTML.childNodes[cell];
       // Paint it progressively greener green
       cellHTML.style.backgroundColor = String.prototype.concat('#', colors[i].toString(16));
+      if (i !== 0) {
+        cellHTML.textContent = `${i}`;
+      }
       i += 1;
     });
   }

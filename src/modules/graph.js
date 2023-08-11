@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-syntax */
 class Graph {
@@ -98,15 +99,9 @@ class Graph {
       console.log(`${key}: ${value}`);
     });
 
-    // console.log(`THIS ONE WORKS`)
-    // console.log(parentMap.get(currentNode.toString()))
-    // console.log(`THIS ONE WORKS`)
-    // console.log(parentMap.get(currentNode))
     console.log(`Current is ${currentNode}`);
     console.log(`Current is ${currentNode.toString()}`);
 
-    // if(currentNode.toString() === test.toString){console.log(true);}
-    // else(console.log(false));
     console.log(currentNode !== start);
     while (currentNode !== start && currentNode !== null) {
       console.log(`This shouldn't read if currentNode is null ${currentNode}`);

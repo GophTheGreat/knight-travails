@@ -5,32 +5,32 @@ import knightImg from '../assets/knight.svg';
 import Graph from './graph';
 
 class Knight {
-  constructor(startpos, endpos, grid) {
-    this.startpos = startpos;
-    this.endpos = endpos;
+  constructor(grid) {
     this.grid = grid;
     this.setup();
   }
 
   setup() {
-    const gridHTML = document.getElementById('grid');
+    console.log('starting setup');
+    console.log(this.grid);
+    const gridHTML = this.grid.gridDiv;
     const image = new Image();
     const cellSize = `${Math.floor((900 / this.grid.size) * 0.9)}px`;
     console.log(cellSize);
+    console.log(gridHTML);
     image.src = knightImg;
     image.style.width = cellSize;
     image.style.height = cellSize;
     // place the knight visibly
     // 0,0 is top left
-    let [row, column] = this.startpos;
+    let [row, column] = this.grid.startpos;
     let cell = row * this.grid.size + column;
     let cellHTML = gridHTML.childNodes[cell];
     cellHTML.style.backgroundColor = 'black';
     cellHTML.appendChild(image);
 
     // mark the endpos
-    [row, column] = this.endpos;
-
+    [row, column] = this.grid.endpos;
     cell = row * this.grid.size + column;
     cellHTML = gridHTML.childNodes[cell];
     cellHTML.style.backgroundColor = 'red';
@@ -39,10 +39,10 @@ class Knight {
   knight_moves() {
     // Start a graph from our knight's startpos
     const graph = new Graph();
-    graph.addVertex(this.startpos);
+    graph.addVertex(this.grid.startpos);
     const queue = [];
     const visited = [];
-    let curpos = this.startpos;
+    let curpos = this.grid.startpos;
     let adjacents = [];
     const gridHTML = document.getElementById('grid');
     let cellHTML;
@@ -58,9 +58,9 @@ class Knight {
       console.log(`Curpos is ${curpos}`);
       // Check if it's the endpoint
       //  If it is, find the path to that point from the graph and return
-      if (curpos.toString() === this.endpos.toString()) {
+      if (curpos.toString() === this.grid.endpos.toString()) {
         console.log('!!!!!!!!!!!!!!!Endpoint found!!!!!!!!!!!!!!!!!!!!!!!!');
-        const path = graph.findPathToRoot(graph, this.startpos, this.endpos);
+        const path = graph.findPathToRoot(graph, this.grid.startpos, this.grid.endpos);
         console.log(`Path to the endpoint is: ${path}`);
         this.grid.color_path(path);
         return path;
