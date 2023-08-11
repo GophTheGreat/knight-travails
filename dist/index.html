@@ -9,16 +9,19 @@
 <body>
   <div class="top">
     <div>Knight Travails</div>
-    <button>RESET</button>
     <input type="range" min="8" max="25" value="8" class="slider" id="slider">
     <div class="sliderText" id="sliderText"></div>
   </div>
   <div class="middle">
     <div id="posContainer">
-      <div id="startPosTitle" class="posText">Knight Start</div>
-      <div id="startPos" class="posText">[3, 1]</div>
-      <div id="endPosTitle" class="posText">Destination</div>
-      <div id="endPos" class="posText">[4, 4]</div>
+      <div id="startPosContainer">
+        <div id="startPosTitle" class="posText">Knight Start</div>
+        <div id="startPos" class="posText">Click!</div>
+      </div>
+      <div id="endPosContainer">
+        <div id="endPosTitle" class="posText">Destination</div>
+        <div id="endPos" class="posText">Click!</div>
+      </div>
     </div>
     <div id="grid" class="grid"></div>
   </div>

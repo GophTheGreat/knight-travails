@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable indent */
 /* eslint-disable no-loop-func */
@@ -11,11 +12,14 @@ class Knight {
   }
 
   setup() {
+    if (this.grid.startpos[0] === -1) {
+      return;
+    }
     console.log('starting setup');
     console.log(this.grid);
     const gridHTML = this.grid.gridDiv;
     const image = new Image();
-    const cellSize = `${Math.floor((900 / this.grid.size) * 0.9)}px`;
+    const cellSize = `${Math.floor((600 / this.grid.size) * 0.9)}px`;
     console.log(cellSize);
     console.log(gridHTML);
     image.src = knightImg;
@@ -28,12 +32,13 @@ class Knight {
     let cellHTML = gridHTML.childNodes[cell];
     cellHTML.style.backgroundColor = 'black';
     cellHTML.appendChild(image);
+    // Make the image itself transparent to being clicked on
+    image.style.pointerEvents = 'none';
 
     // mark the endpos
     [row, column] = this.grid.endpos;
     cell = row * this.grid.size + column;
     cellHTML = gridHTML.childNodes[cell];
-    cellHTML.style.backgroundColor = 'red';
   }
 
   knight_moves() {
