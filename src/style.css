@@ -108,10 +108,6 @@ button{
   font-size: 40px;
 }
 
-.posText{
-  font-size: 60px;
-}
-
 .grid{
   display: inline-grid;
   /* grid colums and rows defined in grid.js */

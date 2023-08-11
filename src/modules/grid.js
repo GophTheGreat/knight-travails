@@ -25,7 +25,7 @@ class Grid {
         const cell = grid[i][j];
         cell.classList.add('cell');
         cell.style.border = '2px solid darkgrey';
-        cell.style.fontSize = `${600 / gridSize}px`;
+        cell.style.fontSize = `${500 / gridSize}px`;
         cell.class = 'cell';
         gridHTML.appendChild(cell);
         // set up the cells to listen for input
