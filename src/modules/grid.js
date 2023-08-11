@@ -1,6 +1,9 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-bitwise */
 /* eslint-disable no-console */
+
+import { setPos } from './page';
 
 class Grid {
   constructor(startpos, endpos, size, gridDiv) {
@@ -14,15 +17,20 @@ class Grid {
   makeGrid(gridSize, gridDiv) {
     const grid = [];
     const gridHTML = gridDiv;
-    const cellSize = 900 / gridSize;
+    const cellSize = 700 / gridSize;
     for (let i = 0; i < gridSize; i += 1) {
       grid[i] = [];
       for (let j = 0; j < gridSize; j += 1) {
         grid[i][j] = document.createElement('div');
-        grid[i][j].classList.add('cell');
-        grid[i][j].style.border = '2px solid darkgrey';
-        grid[i][j].class = 'cell';
-        gridHTML.appendChild(grid[i][j]);
+        const cell = grid[i][j];
+        cell.classList.add('cell');
+        cell.style.border = '2px solid darkgrey';
+        cell.style.fontSize = `${600 / gridSize}px`;
+        cell.class = 'cell';
+        gridHTML.appendChild(cell);
+        // set up the cells to listen for input
+        cell.addEventListener('click', setPos);
+        cell.setAttribute('data-position', `[${i}, ${j}]`);
       }
     }
     gridHTML.style.gridColumnStart = '2';
@@ -69,10 +77,17 @@ class Grid {
       [row, column] = element;
       cell = row * this.size + column;
       cellHTML = gridHTML.childNodes[cell];
-      // Paint it progressively greener green
+      // Paint it progressively from teal to green
+      // And fill with colors and numbers
       cellHTML.style.backgroundColor = String.prototype.concat('#', colors[i].toString(16));
-      if (i !== 0) {
-        cellHTML.textContent = `${i}`;
+      if (i !== 0) { cellHTML.textContent = `${i}`; }
+      if (i === 0) {
+        cellHTML.style.borderColor = '#fbfc8d';
+        cellHTML.style.borderWidth = '4px';
+      }
+      if (i === pathArray.length - 1) {
+        cellHTML.style.borderColor = 'red';
+        cellHTML.style.borderWidth = '4px';
       }
       i += 1;
     });

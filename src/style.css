@@ -29,7 +29,7 @@ body{
   width: 2000px;
   justify-content: center;
   color: white;
-  font-size: 250px;
+  font-size: 60px;
   font-weight: 900;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -65,6 +65,7 @@ button{
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  margin-top: 40px;
 }
 
 .slider::-webkit-slider-thumb {
@@ -91,19 +92,33 @@ button{
 }
 
 #posContainer{
+  display: grid;
   grid-column-start: 2;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+#startPosContainer,#endPosContainer{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
 }
 
 .posText{
   font-size: 40px;
 }
 
+.posText{
+  font-size: 60px;
+}
+
 .grid{
   display: inline-grid;
   /* grid colums and rows defined in grid.js */
-  height: 900px;
-  width: 900px;
+  height: 800px;
+  width: 800px;
   background-color: gray;
+  margin-top: 30px;
 }
 
 .cell{
@@ -111,7 +126,7 @@ button{
  display: flex;
  justify-content: center;
  align-items: center;
- font-size: 10px;
+ /* font-size: 10px; */
 }
 
 .footer{
